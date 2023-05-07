@@ -1,20 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const BooksSection = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:1000/api/v1/deleteBook/${id}`);
-      alert("Book deleted successfully!");
-      // perform any additional actions after deleting the book
-    } catch (error) {
-      console.error(error);
-      // handle any errors that occur during the deletion process
-    }
-  };
+  console.log(data);
+  const navigate = useNavigate();
 
   return (
-    <div className="d-flex justify-content-around align-items-center flex-wrap my-3">
+    
+    <div className="d-flex bg-success justify-content-around align-items-center flex-wrap my-3">
       {data &&
         data.map((item, index) => (
           <div
@@ -48,8 +42,21 @@ const BooksSection = ({ data }) => {
               Rs. {item.price}
             </b>
             <div className="d-flex justify-content-around align-items-center my-2">
-              <button className="btn btn-primary">Update</button>
-              <button className="btn btn-danger" onClick={handleDelete}>
+              <Link to={`/books/${item._id}`} className="btn btn-primary">
+                Update
+              </Link>
+              <button
+                onClick={async () => {
+                  await axios
+                    .delete(
+                      `http://localhost:1000/api/v1/deleteBook/${item._id}`
+                    )
+                    .then((res) => res.data)
+                    .then(() => navigate("/"))
+                    .then(() => navigate("/books"));
+                }}
+                className="btn btn-danger"
+              >
                 Delete
               </button>
             </div>

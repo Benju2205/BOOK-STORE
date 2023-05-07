@@ -10,7 +10,7 @@ const Books = () => {
         .then((res) => setData(res.data.books));
     };
     fetch();
-  });
+  },[]);
 
   return (
     <div className="bg-dark" style={{ minHeight: "91.5vh" }}>

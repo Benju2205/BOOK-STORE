@@ -1,4 +1,5 @@
 import "./App.css";
+import BookDetail from "./components/BookDetail";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import AddBooks from "./pages/AddBooks";
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/addBooks" element={<AddBooks />} />
+        <Route path="/books/:id" element={<BookDetail/>} exact />
       </Routes>
       <Footer/>
       </>
